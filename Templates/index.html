@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DV_!News</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="/static/style.css">
+    <!-- <link rel="stylesheet" href="/JAVA_Scripts/brain.js"> -->
+</head>
+
+
+<body class="min-h-screen ">
+    <!-- flex flex-col   -->
+    <div class="mesh"></div>
+    <!-- <nav class="sticky top-0 z-50 border-b border-white/5 bg-slate-950/50 backdrop-blur-xl px-6 py-4">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="flex items-center gap-3 group cursor-pointer">
+                <div
+                    class="p-2 bg-indigo-600 rounded-xl group-hover:rotate-12 transition-transform duration-300 shadow-lg shadow-indigo-500/20">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                            d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10l4 4v10a2 2 0 01-2 2z"></path>
+                    </svg>
+                </div>
+                <h1 class="text-2xl font-black tracking-tighter">Dhanesh<span class="gradient-text">_!NEWS</span></h1>
+            </div>
+
+            <div class="relative w-full max-w-lg">
+                <form action="/search" method="post">
+                    <input type="text" id="search-input" name="query" value="{{ query }}" placeholder="Search: Cricket, Tech, or Business..." required
+                        class="w-full bg-white/5 border border-white/10 rounded-2xl py-3 px-6 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all text-white placeholder:text-slate-500">
+                    <button type="submit" id="search-btn"
+                        class="absolute right-2 top-1.5 bg-indigo-600 hover:bg-indigo-500 text-white px-5 py-1.5 rounded-xl font-bold transition-all active:scale-95 shadow-lg shadow-indigo-900/40">Search
+                    </button>
+                </form>
+            </div>
+        </div>
+    </nav> -->
+    <nav class="sticky top-0 z-50 w-full border-b border-white/10 bg-slate-950/70 backdrop-blur-md px-6 py-4 shadow-xl">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+        <div class="flex items-center gap-3 group cursor-pointer">
+            <div class="p-2 bg-indigo-600 rounded-xl group-hover:rotate-12 transition-transform duration-300 shadow-lg shadow-indigo-500/20">
+                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10l4 4v10a2 2 0 01-2 2z"></path>
+                </svg>
+            </div>
+            <h1 class="text-2xl font-black tracking-tighter text-white">Dhanesh<span class="gradient-text">_!NEWS</span></h1>
+        </div>
+
+        <div class="relative w-full max-w-lg">
+            <form action="/search" method="post" class="relative">
+                <input type="text" name="query" value="{{ query }}" placeholder="Search: Cricket, Tech, or Business..." required
+                    class="w-full bg-white/5 border border-white/10 rounded-2xl py-3 px-6 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all text-white placeholder:text-slate-500">
+                <button type="submit" 
+                    class="absolute right-2 top-1.5 bg-indigo-600 hover:bg-indigo-500 text-white px-5 py-1.5 rounded-xl font-bold transition-all active:scale-95 shadow-lg shadow-indigo-900/40">
+                    Search
+                </button>
+            </form>
+        </div>
+    </div>
+</nav>
+
+    <main class="max-w-7xl mx-auto px-6 w-full flex-grow py-12">
+        <div id="hero" class="text-center py-20">
+            <p class="text-indigo-400 font-bold tracking-[0.3em] uppercase text-xs mb-4">The Pure Information Engine</p>
+            <h2 class="text-5xl md:text-7xl font-extrabold tracking-tight mb-8">Knowledge <br><span
+                    class="opacity-30 italic">Beyond Headlines.</span></h2>
+            <div class="flex flex-wrap justify-center gap-4">
+                <button class="hero-btn px-6 py-2 rounded-full border border-white/10 hover:bg-white/5 transition-all text-sm">🏏 Cricket </button>
+
+                <button onclick="quickSearch('Artificial Intelligence')"
+                    class="hero-btn px-6 py-2 rounded-full border border-white/10 hover:bg-white/5 transition-all text-sm">🧠 AI Updates</button>
+
+                <button onclick="quickSearch('World Economy')"
+                    class="hero-btn px-6 py-2 rounded-full border border-white/10 hover:bg-white/5 transition-all text-sm">📈 Business</button>
+
+                <button onclick="quickSearch('Technology News')"
+                    class="hero-btn px-6 py-2 rounded-full border border-white/10 hover:bg-white/5 transition-all text-sm">💻 Technology</button>
+
+                <button onclick="quickSearch('Startup News')"
+                    class="hero-btn px-6 py-2 rounded-full border border-white/10 hover:bg-white/5 transition-all text-sm">🚀 Startups</button>
+
+                <button onclick="quickSearch('Health News')"
+                    class="hero-btn px-6 py-2 rounded-full border border-white/10 hover:bg-white/5 transition-all text-sm">🏥 Health </button>
+
+                <button onclick="quickSearch('Science News')"
+                    class="hero-btn px-6 py-2 rounded-full border border-white/10 hover:bg-white/5 transition-all text-sm">🔬 Science</button>
+
+                <button onclick="quickSearch('Education News')"
+                    class="hero-btn px-6 py-2 rounded-full border border-white/10 hover:bg-white/5 transition-all text-sm">🎓 Education </button>
+
+                <button onclick="quickSearch('Sports News')"
+                    class="hero-btn px-6 py-2 rounded-full border border-white/10 hover:bg-white/5 transition-all text-sm">⚽ Sports </button>
+
+                <button onclick="quickSearch('Entertainment News')"
+                    class="hero-btn px-6 py-2 rounded-full border border-white/10 hover:bg-white/5 transition-all text-sm">🎬 Entertainment</button>
+
+                <button onclick="quickSearch('Other News')"
+                    class="hero-btn px-6 py-2 rounded-full border border-white/10 hover:bg-white/5 transition-all text-sm">🧩 Others
+                </button>
+            </div>
+        </div>
+
+        {% if articles == [] %}
+            <h1 style="color:#6366f1; font-weight: 900; font-size: 20px; text-align: center; ">Please!&emsp; Search the News which you want to read...</h1>  
+
+        {% else %}
+        <div id="news-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-20">
+            {% for article in articles %}
+                    <div class="news-box">
+                        <div class="glow-accent"></div>
+                        
+                        <h3 class="news-title">
+                            <span>News Headline</span>
+                            {{ article.title }}
+                        </h3>
+
+                        <div class="news-desc">
+                            <span>Brief Overview</span>
+                            {{ article.description }}
+                        </div>
+
+                        <div class="news-content">
+                            <span>Detailed Insight</span>
+                            {{ article.content }}
+                        </div>
+
+                        <div class="news-meta">
+                            <div class="meta-pill">
+                                <span class="meta-label">Published At</span>
+                                <span class="meta-value">{{ article.publishedAt }}</span>
+                            </div>
+                            <div class="meta-pill">
+                                <span class="meta-label">Author</span>
+                                <span class="meta-value">{{ article.author }}</span>
+                            </div>
+                        </div>
+                    </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </main>
+
+    <footer class="mt-auto border-t border-white/5 bg-slate-950/80 backdrop-blur-md py-12">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col items-center">
+            <!-- <div class="bg-indigo-600/10 border border-indigo-500/20 px-24 py-4 rounded-3xl text-center mb-6"> -->
+                <div class="bg-indigo-600/10 border border-indigo-500/20 w-[96%] py-4 px-6 rounded-3xl text-center mb-6 mx-auto">
+
+            <!-- <div class="bg-indigo-600/10 border border-indigo-500/20 px-8 py-4 rounded-3xl text-center mb-6"> -->
+                <p class="text-[10px] uppercase tracking-[0.4em] text-indigo-400 font-bold mb-2">Developed By</p>
+                <h4 class="text-2xl font-black text-white tracking-tight italic">Dhanesh Vaishnav</h4>
+            </div>
+            <p class="text-slate-500 text-xs font-medium uppercase tracking-widest">&copy;2026 Dhanesh_!NEWS  Designed for Insight.</p>
+        </div>
+    </footer>
+</body>
+</html>
