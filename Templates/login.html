@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Dhanesh_!NEWS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link rel="stylesheet" href="/static/login.css">
+    
+</head>
+<body>
+
+    <div class="glass-panel rounded-[2.5rem] p-[2px] animate__animated animate__zoomIn">
+        <div class="inner-content p-8 md:p-12 rounded-[2.4rem]">
+            
+            <div class="flex items-center justify-center space-x-3 mb-12 animate__animated animate__fadeInDown">
+                <div class="logo-box">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 6C4 4.89543 4.89543 4 6 4H14.5L20 9.5V18C20 19.1046 19.1046 20 18 20H6C4.89543 20 4 19.1046 4 18V6Z" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <div class="logo-text text-2xl md:text-3xl text-white">
+                    Dhanesh<span class="underscore-blue">_</span><span class="news-cyan">!NEWS</span>
+                </div>
+            </div>
+
+            <form method="post" class="space-y-6 animate__animated animate__fadeInUp animate__delay-1s">
+                
+                {% if error %}
+                <div class="bg-red-500/10 border-l-4 border-red-500 text-red-400 p-3 rounded text-xs">
+                    {{ error }}
+                </div>
+                {% endif %}
+
+                <div class="space-y-1">
+                    <div class="relative group">
+                        <i class="fas fa-user absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 group-focus-within:text-indigo-400"></i>
+                        <input name="username" placeholder="Username" required
+                            class="input-field w-full py-4 pl-12 pr-4 rounded-xl text-white outline-none placeholder:text-gray-600">
+                    </div>
+                </div>
+
+                <div class="space-y-1">
+                    <div class="relative group">
+                        <i class="fas fa-lock absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 group-focus-within:text-indigo-400"></i>
+                        <input name="password" type="password" placeholder="Password" required
+                            class="input-field w-full py-4 pl-12 pr-4 rounded-xl text-white outline-none placeholder:text-gray-600">
+                    </div>
+                </div>
+
+                <button type="submit" 
+                    class="btn-auth w-full text-white font-bold py-4 rounded-xl mt-4 tracking-widest text-sm shadow-xl">
+                    LOGIN TO PORTAL
+                </button>
+            </form>
+
+            <div class="mt-8 text-center animate__animated animate__fadeIn animate__delay-2s">
+                <p class="text-gray-500 text-sm">
+                    Don't have an account?
+                    <a href="/register" class="text-indigo-400 font-bold hover:text-white transition-colors">Register here</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="fixed inset-0 pointer-events-none -z-10 overflow-hidden">
+        <div class="absolute -top-[10%] -left-[10%] w-[50vw] h-[50vw] bg-indigo-600/10 rounded-full blur-[100px] animate-pulse"></div>
+        <div class="absolute -bottom-[10%] -right-[10%] w-[60vw] h-[60vw] bg-cyan-600/10 rounded-full blur-[120px] animate-pulse"></div>
+    </div>
+
+</body>
+</html>
