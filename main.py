@@ -62,9 +62,8 @@ def register_user(
 
     return RedirectResponse(url="/login", status_code=302)
 
-# -------------------------------
-# LOGIN
-# -------------------------------
+
+
 @app.get("/login")
 def login_page(request: Request):
     return templates.TemplateResponse(
@@ -89,7 +88,6 @@ def login_user(
                 "error": "Invalid username or password"
             }
         )
-
 
     return RedirectResponse(url="/dashboard", status_code=302)
 
