@@ -63,7 +63,6 @@ def register_user(
     return RedirectResponse(url="/login", status_code=302)
 
 
-
 @app.get("/login")
 def login_page(request: Request):
     return templates.TemplateResponse(
