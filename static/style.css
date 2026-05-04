@@ -25,7 +25,7 @@ html, body {
 }
 
 
-/* Background Effect */
+/* ========== BACKGROUND ========== */
 .mesh {
     position: fixed;
     inset: 0;
@@ -37,6 +37,7 @@ html, body {
 }
 
 
+/* ========== GRADIENT TEXT ========== */
 .gradient-text {
     background: linear-gradient(to right, #818cf8, #22d3ee);
     -webkit-background-clip: text;
@@ -45,76 +46,81 @@ html, body {
     -webkit-text-fill-color: transparent;
 }
 
+
+/* ========== NEWS CARD ========== */
 .news-box {
     position: relative;
-    width: 100%; 
-    padding: 28px; /* Balanced padding for 3 columns */
-    background: rgba(15, 23, 42, 0.4);
+    width: 100%;
+    padding: 28px;
+    background: rgba(15, 23, 42, 0.35);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border-radius: 24px;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    box-sizing: border-box; /* Fixes the overflow issue */
-    overflow-wrap: break-word; /* Prevents text from pushing box width */
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    box-sizing: border-box;
+    overflow-wrap: break-word;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                border-color 0.4s ease,
+                box-shadow 0.4s ease;
+    animation: cardFadeIn 0.5s ease both;
 }
 
-/* COMPACT RESPONSIVE FOOTER */
-footer {
-    /* Ensures the footer stays small and centered */
-    display: flex;
-    align-items: center;
-    min-height: 60px;
-}
-.footer-branding {
-    letter-spacing: 0.4em;
-    line-height: 1.2;
-}
-
-.name-highlight {
-    /* Specific Indigo shade requested */
-    color: #818cf8; 
-    font-weight: 800;
-    /* Soft glow for dark backgrounds */
-    text-shadow: 0 0 15px rgba(129, 140, 248, 0.2);
-    transition: color 0.3s ease;
-}
-
-.name-highlight:hover {
-    color: #a5b4fc; /* Slightly lighter on hover */
-}
-
-/* OPTIONAL — safe to remove */
-
-
-/* MOBILE OPTIMIZATION */
-@media (max-width: 640px) {
-    .footer-branding {
-        font-size: 9px;
-        letter-spacing: 0.15em;
-        padding: 0 10px;
+@keyframes cardFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
     }
-    
-    footer {
-        padding-top: 1.25rem !important;
-        padding-bottom: 1.25rem !important;
-        min-height: 50px;
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
 
 @media (min-width: 768px) {
-    .news-box { padding: 35px; border-radius: 30px; }
+    .news-box { padding: 32px; border-radius: 24px; }
 }
 
+/* Card Hover */
 .news-box:hover {
-    transform: translateY(-8px);
-    border-color: rgba(99, 102, 241, 0.4);
-    box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.6);
+    transform: translateY(-6px);
+    border-color: rgba(99, 102, 241, 0.3);
+    box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.5);
+}
+
+/* Bottom border animation */
+.news-box::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary), var(--accent));
+    transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+                left 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+}
+
+.news-box:hover::after {
+    width: 100%;
+    left: 0;
 }
 
 
-.news-box span:first-child {
+/* ========== TITLE ========== */
+.news-title {
+    font-size: 1.25rem;
+    font-weight: 800;
+    line-height: 1.35;
+    margin-bottom: 18px;
+    color: #ffffff;
+    transition: color 0.3s ease;
+}
+
+.news-title span:first-child {
     display: block;
     font-size: 0.6rem;
     font-weight: 800;
@@ -124,266 +130,363 @@ footer {
     color: var(--primary);
 }
 
-
-.news-title {
-    font-size: 1.35rem; 
-    font-weight: 800;
-    line-height: 1.3;
-    margin-bottom: 15px;
-    color: #ffffff;
-}
-
 @media (min-width: 768px) {
-    .news-title { font-size: 1.5rem; }
+    .news-title { font-size: 1.4rem; }
 }
 
-.news-desc {
-    font-size: 0.95rem;
+
+/* ========== NEWS SECTIONS (Overview & Insight) ========== */
+.news-section {
+    margin-bottom: 16px;
+}
+
+.section-label {
+    display: block;
+    font-size: 0.6rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    margin-bottom: 8px;
+    color: var(--primary);
+}
+
+.news-desc-text {
+    font-size: 0.92rem;
     color: #cbd5e1;
-    margin-bottom: 20px;
     line-height: 1.6;
-}
-
-.news-content {
-    font-size: 0.9rem;
-    color: #94a3b8;
-    padding: 15px;
-    background: rgba(0, 0, 0, 0.2);
-    border-radius: 15px;
-    border-left: 4px solid var(--primary);
-    margin-bottom: 20px;
-    
-    overflow: hidden;
     display: -webkit-box;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 4; 
-    line-clamp: 4; /* Standard property to resolve warnings */
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+    margin-bottom: 10px;
 }
 
-/* Meta Data Pills */
+.news-content-text {
+    font-size: 0.88rem;
+    color: #94a3b8;
+    line-height: 1.6;
+    padding: 14px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 12px;
+    border-left: 3px solid rgba(99, 102, 241, 0.4);
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+    margin-bottom: 10px;
+    transition: border-color 0.3s ease, transform 0.3s ease;
+}
+
+.news-box:hover .news-content-text {
+    border-left-color: var(--accent);
+    transform: translateX(3px);
+}
+
+
+/* ========== READ MORE BUTTON ========== */
+.read-more-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    background: rgba(6, 182, 212, 0.08);
+    border: 1px solid rgba(6, 182, 212, 0.15);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.read-more-btn:hover {
+    background: rgba(6, 182, 212, 0.15);
+    border-color: rgba(6, 182, 212, 0.35);
+    transform: translateX(3px);
+    color: #22d3ee;
+}
+
+.read-more-btn svg {
+    transition: transform 0.3s ease;
+}
+
+.read-more-btn:hover svg {
+    transform: translateX(3px);
+}
+
+
+/* ========== META PILLS ========== */
 .news-meta {
     display: flex;
-    flex-wrap: wrap; 
-    gap: 8px; /* Slightly tighter gap */
-    padding-top: 15px;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding-top: 16px;
     border-top: 1px solid rgba(255, 255, 255, 0.05);
+    margin-top: auto;
 }
 
 .meta-pill {
     background: rgba(255, 255, 255, 0.03);
     padding: 6px 10px;
     border-radius: 8px;
-    flex: 1 1 auto; /* Allows pills to grow/shrink to fit */
-    min-width: 0;   /* Prevents flex items from overflowing */
+    flex: 1 1 auto;
+    min-width: 0;
 }
 
-.meta-label { font-size: 0.5rem; opacity: 0.6; text-transform: uppercase; display: block; }
+.meta-label {
+    font-size: 0.5rem;
+    opacity: 0.6;
+    text-transform: uppercase;
+    display: block;
+}
+
 .meta-value {
     font-size: 0.7rem;
     font-weight: 700;
     color: #e2e8f0;
-    word-break: break-all; /* Critical for the Realme C75 360px screen */
+    word-break: break-all;
 }
 
-/* Animations */
-@keyframes ultraFadeUp {
-    from { opacity: 0; transform: translateY(30px); filter: blur(10px); }
-    to { opacity: 1; transform: translateY(0); filter: blur(0); }
+
+/* ========== MODAL OVERLAY ========== */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(3, 7, 18, 0.85);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    padding: 20px;
 }
 
-/* Scrollbar */
+.modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-box {
+    width: 100%;
+    max-width: 600px;
+    max-height: 80vh;
+    overflow-y: auto;
+    background: rgba(15, 23, 42, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    padding: 28px;
+    transform: translateY(20px) scale(0.97);
+    transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.modal-overlay.active .modal-box {
+    transform: translateY(0) scale(1);
+}
+
+/* Modal Scrollbar */
+.modal-box::-webkit-scrollbar { width: 4px; }
+.modal-box::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
+
+.modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #94a3b8;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.back-btn:hover {
+    background: rgba(99, 102, 241, 0.12);
+    border-color: rgba(99, 102, 241, 0.3);
+    color: #c7d2fe;
+    transform: translateX(-3px);
+}
+
+.modal-badge {
+    font-size: 0.6rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--primary);
+    background: rgba(99, 102, 241, 0.1);
+    padding: 5px 12px;
+    border-radius: 6px;
+}
+
+.modal-badge-detail {
+    color: var(--accent);
+    background: rgba(6, 182, 212, 0.1);
+}
+
+.modal-title {
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 1.35;
+    margin-bottom: 20px;
+}
+
+.modal-body {
+    font-size: 0.92rem;
+    color: #cbd5e1;
+    line-height: 1.75;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 14px;
+    border-left: 3px solid var(--primary);
+    margin-bottom: 20px;
+}
+
+.modal-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.7rem;
+    color: #64748b;
+    font-weight: 600;
+    padding-top: 14px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+
+/* ========== FOOTER ========== */
+footer {
+    display: flex;
+    align-items: center;
+    min-height: 60px;
+}
+
+.footer-branding {
+    letter-spacing: 0.4em;
+    line-height: 1.2;
+}
+
+.name-highlight {
+    color: #818cf8;
+    font-weight: 800;
+    text-shadow: 0 0 15px rgba(129, 140, 248, 0.2);
+    transition: color 0.3s ease;
+}
+
+.name-highlight:hover {
+    color: #a5b4fc;
+}
+
+
+/* ========== SCROLLBAR ========== */
 ::-webkit-scrollbar { width: 5px; }
 ::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
 
-/* Ensure images don't break layout */
 img { max-width: 100%; height: auto; }
 
 
-/* BREAKPOINT TWEAKS */
-
-/* Ensure the main container doesn't get covered by the fixed nav */
+/* ========== LAYOUT TWEAKS ========== */
 main {
-    padding-top: 100px; /* Base padding */
+    padding-top: 100px;
 }
 
-@media (max-width: 768px) {
-    main {
-        padding-top: 80px;
-    }
-    
-    /* Make Hero text slightly smaller on mobile for better fit */
-    #hero h2 {
-        font-size: 2.5rem;
-        line-height: 1.1;
-    }
-    
-    /* Force grid to 1 column on very small screens if needed */
-    #news-grid {
-        display: grid;
-        align-items: stretch;
-    }
-}
-
-/* Adjustments for 4-column layout */
-@media (min-width: 1280px) {
-    .news-box {
-        padding: 20px; /* Reduced from 35px to fit more content */
-        border-radius: 20px;
-    }
-
-    .news-title {
-        font-size: 1.1rem; /* Slightly smaller for 4-column density */
-        margin-bottom: 10px;
-    }
-
-    .news-desc, .news-content {
-        font-size: 0.85rem; /* Compact text */
-    }
-
-    .news-meta {
-        flex-direction: column; /* Stack meta info to prevent horizontal overflow */
-        gap: 8px;
-    }
-
-    .meta-pill {
-        width: 100%;
-    }
-}
-
-/* Ensure the container uses full available width */
 .max-w-7xl {
-    max-width: 90% !important; /* Expansion for desktop viewing */
+    max-width: 90% !important;
 }
 
-/* Ensure dropdowns and search bars transition smoothly */
+
+/* ========== PEER CHECKED (dropdowns) ========== */
 .peer:checked ~ div {
     visibility: visible !important;
     opacity: 1 !important;
     transform: translateY(0) !important;
 }
 
-/* Specific styling for the Mobile Search Overlay */
 #search-toggle:checked ~ label {
-    color: #6366f1; /* Changes icon color when search is active */
+    color: #6366f1;
 }
 
-/* Background blur for the mobile search area */
 .peer-checked\:visible {
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
 }
 
 
+/* ========== RESPONSIVE ========== */
+@media (max-width: 640px) {
+    .footer-branding {
+        font-size: 9px;
+        letter-spacing: 0.15em;
+        padding: 0 10px;
+    }
 
-
-/* 1. Base Box Setup with Glassmorphism */
-.news-box {
-    position: relative;
-    transition: all 0.5s cubic-bezier(0.15, 0.85, 0.35, 1);
-    background: rgba(15, 23, 42, 0.3);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    overflow: hidden; /* Clips the spotlight glow */
+    footer {
+        padding-top: 1.25rem !important;
+        padding-bottom: 1.25rem !important;
+        min-height: 50px;
+    }
 }
 
-/* 2. The "Spotlight" Glow Layer */
-.news-box::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(
-        800px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), 
-        rgba(99, 102, 241, 0.15),
-        transparent 40%
-    );
-    opacity: 0;
-    transition: opacity 0.5s ease;
-    z-index: 0;
+@media (max-width: 768px) {
+    main {
+        padding-top: 80px;
+    }
+
+    #hero h2 {
+        font-size: 2.5rem;
+        line-height: 1.1;
+    }
+
+    #news-grid {
+        display: grid;
+        align-items: stretch;
+    }
+
+    .modal-box {
+        padding: 20px;
+    }
+
+    .modal-title {
+        font-size: 1.15rem;
+    }
 }
 
-/* 3. The Professional Hover State */
-.news-box:hover {
-    transform: translateY(-10px) scale(1.01);
-    border-color: rgba(99, 102, 241, 0.4);
-    background: rgba(15, 23, 42, 0.6);
-    box-shadow: 
-        0 0 0 1px rgba(99, 102, 241, 0.1), /* Subtle outer ring */
-        0 25px 50px -12px rgba(0, 0, 0, 0.5); /* Deep lift shadow */
-}
+@media (min-width: 1280px) {
+    .news-box {
+        padding: 24px;
+        border-radius: 20px;
+    }
 
-.news-box:hover::before {
-    opacity: 1;
-}
+    .news-title {
+        font-size: 1.15rem;
+        margin-bottom: 12px;
+    }
 
-/* 4. Content Polish - Making text pop */
-.news-box:hover .news-title {
-    background: linear-gradient(to right, #fff, #818cf8);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    transition: all 0.4s ease;
-}
+    .news-desc-text,
+    .news-content-text {
+        font-size: 0.85rem;
+    }
 
-.news-box:hover .news-content {
-    border-left: 4px solid #22d3ee;
-    box-shadow: -10px 0 20px -10px rgba(34, 211, 238, 0.2);
-    transform: translateX(5px);
-    transition: all 0.4s ease;
-}
+    .news-meta {
+        flex-direction: column;
+        gap: 8px;
+    }
 
-/* 5. Meta Pill Interaction */
-.news-box:hover .meta-pill {
-    background: rgba(99, 102, 241, 0.1);
-    border: 1px solid rgba(99, 102, 241, 0.2);
-    transition: all 0.3s ease;
-}
-
-
-
-/* 1. REMOVE META PILL BORDERS ON HOVER */
-.news-box:hover .meta-pill {
-    border: none !important;
-    background: transparent !important;
-    box-shadow: none !important;
-}
-
-/* 2. NEWS BOX BASE SETUP */
-.news-box {
-    position: relative;
-    overflow: hidden; 
-    transition: transform 0.6s cubic-bezier(0.2, 1, 0.3, 1), 
-                box-shadow 0.6s ease;
-}
-
-/* 3. BOX LIFT (Heading color remains original) */
-.news-box:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.8);
-}
-
-/* 4. SLOW SOLID BOTTOM BORDER (Center-Out Expansion) */
-.news-box::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 50%; /* Start at the horizontal center */
-    width: 0; /* Hidden initially */
-    height: 4px; /* Thick, professional line */
-    background-color: #6366f1; /* Solid Indigo color */
-    
-    /* 1.2s Duration for a "More Slow" feel */
-    transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1), 
-                left 1.2s cubic-bezier(0.4, 0, 0.2, 1);
-    
-    pointer-events: none;
-    box-shadow: 0 -2px 10px rgba(99, 102, 241, 0.3); /* Soft glow around the line */
-}
-
-.news-box:hover::after {
-    width: 100%; /* Expands to full box width */
-    left: 0; /* Shifts to maintain center growth */
-}
-
-/* 5. PERMANENT META STYLING */
-.meta-pill {
-    border: none !important; /* No white border */
-    background: rgba(255, 255, 255, 0.03);
+    .meta-pill {
+        width: 100%;
+    }
 }

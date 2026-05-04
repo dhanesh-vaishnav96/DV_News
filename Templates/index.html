@@ -142,20 +142,40 @@
 <div id="news-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
             {% if articles %}
             {% for article in articles %}
-            <div class="news-box">
-                <div class="glow-accent"></div>
+            <div class="news-box" style="animation-delay: {{ loop.index0 * 0.08 }}s">
+                {% if article.urlToImage %}
+                <img src="{{ article.urlToImage }}" alt="News Image" class="w-full h-48 object-cover rounded-xl mb-4 border border-white/10" onerror="this.style.display='none';">
+                {% endif %}
                 <h3 class="news-title">
                     <span>News Headline</span>
                     {{ article.title }}
                 </h3>
-                <div class="news-desc">
-                    <span>Brief Overview</span>
-                    {{ article.description }}
+
+                <!-- Brief Overview with Read More -->
+                <div class="news-section">
+                    <span class="section-label">Brief Overview</span>
+                    <p class="news-desc-text">{{ article.description or 'No description available.' }}</p>
+                    <button class="read-more-btn" onclick="openModal('overview-{{ loop.index }}')">
+                        Read More
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </button>
                 </div>
-                <div class="news-content">
-                    <span>Detailed Insight</span>
-                    {{ article.content }}
+
+                <!-- Detailed Insight with Read More -->
+                <div class="news-section">
+                    <span class="section-label">Detailed Insight</span>
+                    <p class="news-content-text">{{ article.content or 'No content available.' }}</p>
+                    <button class="read-more-btn" onclick="openModal('detail-{{ loop.index }}')">
+                        Read More
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </button>
                 </div>
+
+                <!-- Meta -->
                 <div class="news-meta">
                     <div class="meta-pill">
                         <span class="meta-label">Published At</span>
@@ -167,6 +187,59 @@
                     </div>
                 </div>
             </div>
+
+            <!-- MODAL: Brief Overview -->
+            <div id="overview-{{ loop.index }}" class="modal-overlay" onclick="closeModalOutside(event, 'overview-{{ loop.index }}')">
+                <div class="modal-box">
+                    <div class="modal-header">
+                        <button class="back-btn" onclick="closeModal('overview-{{ loop.index }}')">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M19 12H5M12 19l-7-7 7-7"/>
+                            </svg>
+                            Back
+                        </button>
+                        <span class="modal-badge">Brief Overview</span>
+                    </div>
+                    {% if article.urlToImage %}
+                    <img src="{{ article.urlToImage }}" alt="News Image" class="w-full h-48 md:h-64 object-cover rounded-xl mb-4 border border-white/10" onerror="this.style.display='none';">
+                    {% endif %}
+                    <h3 class="modal-title">{{ article.title }}</h3>
+                    <div class="modal-body">
+                        {{ article.description or 'No description available.' }}
+                    </div>
+                    <div class="modal-meta">
+                        <span>{{ article.author or 'Unknown' }}</span>
+                        <span>{{ article.publishedAt }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MODAL: Detailed Insight -->
+            <div id="detail-{{ loop.index }}" class="modal-overlay" onclick="closeModalOutside(event, 'detail-{{ loop.index }}')">
+                <div class="modal-box">
+                    <div class="modal-header">
+                        <button class="back-btn" onclick="closeModal('detail-{{ loop.index }}')">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M19 12H5M12 19l-7-7 7-7"/>
+                            </svg>
+                            Back
+                        </button>
+                        <span class="modal-badge modal-badge-detail">Detailed Insight</span>
+                    </div>
+                    {% if article.urlToImage %}
+                    <img src="{{ article.urlToImage }}" alt="News Image" class="w-full h-48 md:h-64 object-cover rounded-xl mb-4 border border-white/10" onerror="this.style.display='none';">
+                    {% endif %}
+                    <h3 class="modal-title">{{ article.title }}</h3>
+                    <div class="modal-body">
+                        {{ article.content or 'No content available.' }}
+                    </div>
+                    <div class="modal-meta">
+                        <span>{{ article.author or 'Unknown' }}</span>
+                        <span>{{ article.publishedAt }}</span>
+                    </div>
+                </div>
+            </div>
+
             {% endfor %}
             {% else %}
             <div class="col-span-full text-center py-20">
@@ -182,10 +255,57 @@
     <footer class="mt-auto border-t border-white/5 bg-black/90 backdrop-blur-md py-6 px-4">
         <div class="max-w-7xl mx-auto flex flex-col items-center text-center">
             <h4 class="footer-branding text-[10px] md:text-xs font-bold tracking-[0.2em] text-white uppercase mb-1">
-                &copy; 2026 Designed & Developed by <span class="name-highlight">Dhanesh Vaishnav</span>
+                &copy; 2026 Designed &amp; Developed by <span class="name-highlight">Dhanesh Vaishnav</span>
             </h4>
         </div>
     </footer>
+
+    <script>
+        function openModal(id) {
+            const modal = document.getElementById(id);
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(id) {
+            const modal = document.getElementById(id);
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function closeModalOutside(event, id) {
+            if (event.target.classList.contains('modal-overlay')) {
+                closeModal(id);
+            }
+        }
+
+        // Close modal on Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.modal-overlay.active').forEach(modal => {
+                    modal.classList.remove('active');
+                });
+                document.body.style.overflow = '';
+            }
+        });
+
+        // Hero category buttons - auto search
+        document.querySelectorAll('.hero-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const query = this.textContent.trim().replace(/^.{1,2}\s*/, '');
+                const form = document.createElement('form');
+                form.method = 'post';
+                form.action = '/search';
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = 'query';
+                input.value = query;
+                form.appendChild(input);
+                document.body.appendChild(form);
+                form.submit();
+            });
+        });
+    </script>
 </body>
 
 </html>
